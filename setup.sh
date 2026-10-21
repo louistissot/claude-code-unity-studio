@@ -11,8 +11,8 @@
 # runner session runs it (docs/unity-runner.md).
 #
 # The steps:
-# 1. Make the project in a temporary folder with "unity projects create" (or with the Editor and -createProject when
-#    the CLI is not there).
+# 1. Make the project in a temporary folder with "unity projects create" and UNITY_TEMPLATE (or with the Editor and
+#    -createProject when the CLI is not there or fails).
 # 2. Move Assets, Packages, ProjectSettings, and the Library into this folder. The tools, docs, and templates stay.
 # 3. Copy templates/unity/Assets into Assets (the assemblies Game, Game.Editor, Game.Tests.EditMode,
 #    Game.Tests.PlayMode, the build methods, the command-line driver, the report key).
@@ -33,18 +33,38 @@ TMP="$(mktemp -d "${TMPDIR:-/tmp}/unity-setup.XXXXXX")"
 trap 'rm -rf "$TMP"' EXIT
 
 export PATH="$HOME/.unity/bin:$PATH"
+
+# Make the project with the Editor itself (-createProject). The result has the default packages of the Editor, not the
+# packages of a template. The fall-back when the Unity CLI is not there or fails.
+create_with_editor() {
+  [ -n "$UNITY_VERSION" ] || die "$1 Set UNITY_VERSION (and UNITY_TEMPLATE) in sessions.conf."
+  local unity
+  unity="$(unity_bin "$UNITY_VERSION")"
+  [ -x "$unity" ] || die "$1 No Editor at $unity either (install it: unity install $UNITY_VERSION)."
+  rm -rf "${TMP:?}/$NAME"
+  echo "setup: $1 Fall-back: $unity -createProject (no template; the default packages of the Editor)."
+  "$unity" -batchmode -quit -createProject "$TMP/$NAME" -logFile "$TMP/create.log" \
+    || die "the Editor could not make the project ($TMP/create.log)"
+}
+
 if command -v "$UNITY_CLI" >/dev/null 2>&1; then
+  # A check before the CLI: does the Editor of UNITY_VERSION have the template? (macOS install layout.)
+  if [ -n "$UNITY_VERSION" ] && [ -n "$UNITY_TEMPLATE" ]; then
+    tdir="$UNITY_EDITORS_DIR/$UNITY_VERSION/Unity.app/Contents/Resources/PackageManager/ProjectTemplates"
+    if [ -d "$tdir" ] && ! ls "$tdir" | grep -q "^$UNITY_TEMPLATE"; then
+      echo "setup: caution: the Editor $UNITY_VERSION has no template $UNITY_TEMPLATE. It has:" >&2
+      ls "$tdir" | sed 's/^/  /' >&2
+    fi
+  fi
   args=(projects create "$NAME" --path "$TMP" --no-cloud --non-interactive)
   [ -n "$UNITY_VERSION" ] && args+=(--editor-version "$UNITY_VERSION")
   [ -n "$UNITY_TEMPLATE" ] && args+=(--template "$UNITY_TEMPLATE")
   echo "setup: $UNITY_CLI ${args[*]}"
-  "$UNITY_CLI" "${args[@]}" || die "the Unity CLI could not make the project"
+  if ! "$UNITY_CLI" "${args[@]}"; then
+    create_with_editor "The Unity CLI could not make the project (check UNITY_TEMPLATE: unity templates list)."
+  fi
 else
-  [ -n "$UNITY_VERSION" ] || die "no Unity CLI ($UNITY_CLI) and no UNITY_VERSION in sessions.conf"
-  UNITY="$(unity_bin "$UNITY_VERSION")"
-  [ -x "$UNITY" ] || die "no Unity CLI and no Editor at $UNITY"
-  echo "setup: no Unity CLI; $UNITY -createProject"
-  "$UNITY" -batchmode -quit -createProject "$TMP/$NAME" -logFile "$TMP/create.log" || die "the Editor could not make the project ($TMP/create.log)"
+  create_with_editor "No Unity CLI ($UNITY_CLI)."
 fi
 [ -d "$TMP/$NAME/Assets" ] && [ -f "$TMP/$NAME/ProjectSettings/ProjectVersion.txt" ] || die "no project in $TMP/$NAME"
 

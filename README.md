@@ -49,12 +49,13 @@ The main parts:
 - **Tested on one game, with one human, for about three weeks**, on one Mac (24 GB of memory, 12 cores) with Unity 6,
   with up to about twelve sessions at the same time. The method is not proven for other games, other teams, or other
   machines.
-- **The tools here are generic copies** of the tools of that game. The copies passed these checks without Unity:
-  the bash syntax of all scripts; the lock with fake jobs (the order of plain and exclusive jobs, the runner check);
-  the clone command in a scratch repository; the hook in its three cases; the release zips and their checks with fake
-  players; a compile of the sample C# files against the Unity 6 references; and `quick-compile.sh` on a large real
-  project. **Not run in their generic form:** `setup.sh`, the test tiers on the sample project, the bot and network
-  skeletons with a real player, and the upload part of the release script.
+- **The tools here are generic copies** of the tools of that game. Checks without Unity: the bash syntax of all
+  scripts; the lock with fake jobs (the order of plain and exclusive jobs, the runner check); the clone command in a
+  scratch repository; the hook in its three cases; the release zips and their checks with fake players; `setup.sh` with
+  fake Unity tools; and `quick-compile.sh` on a large real project. Checks with Unity 6 (21 October 2026, by the runner
+  session of the tested game): `setup.sh` with the template `com.unity.template.urp-blank`, the quick tier on the sample
+  project (EditMode 2 of 2, PlayMode 4 of 4), `quick-compile.sh`, and a development build for Mac. **Not run yet:** the
+  bot and network skeletons with a real bot, and the upload part of the release script.
 - **The board for more than one team is new.** It mirrors the board of the tested game, but no second team used it
   over a long time yet. It needs the Claude artifact runtime; a GitHub-only form is described in
   [docs/multi-team.md](docs/multi-team.md).
@@ -125,6 +126,7 @@ Then read [docs/README.md](docs/README.md).
 |---|---|
 | `sessions.conf` | The one configuration file: each path and each name that the tools use. |
 | `llms.txt` | A short summary with links, for AI agents that read this repository. |
+| `CHANGELOG.md` | The changes of each version. |
 | `setup.sh` | Makes an empty Unity 6 project here with the Unity CLI, and adds the samples and the hook. |
 | `docs/` | The method: roles, the life of a session, the merge rule, ownership, disk, the runner, tests, the play report loop, releases, lessons, Blender models, photo pairs. |
 | `tools/unity-lock.sh` | The lock for Unity jobs: the runner check, two slots, the disk guard, `jobs.log`. |
