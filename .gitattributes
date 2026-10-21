@@ -1,0 +1,19 @@
+# Text files keep LF line ends in the repository.
+* text=auto
+*.sh text eol=lf
+*.py text eol=lf
+*.cs text diff=csharp
+*.asmdef text
+*.md text
+
+# Unity YAML files (scenes, prefabs, assets) stay text. A merge of a scene by hand is difficult: keep generated
+# scenes out of Git when you can, and give each scene one owner (docs/file-ownership.md). For merges, you can set up
+# UnityYAMLMerge (Smart Merge) of the Unity install as a merge tool.
+
+# Git LFS: remove the "#" from the lines that you need, after "git lfs install".
+# *.fbx filter=lfs diff=lfs merge=lfs -text
+# *.png filter=lfs diff=lfs merge=lfs -text
+# *.jpg filter=lfs diff=lfs merge=lfs -text
+# *.wav filter=lfs diff=lfs merge=lfs -text
+# *.ogg filter=lfs diff=lfs merge=lfs -text
+# *.exr filter=lfs diff=lfs merge=lfs -text

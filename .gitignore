@@ -1,0 +1,35 @@
+# Unity: the folders that Unity makes again from the project files.
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emory[Cc]aptures/
+/[Rr]ecordings/
+
+# Builds, test results, and release files.
+/[Bb]uild/
+/[Bb]uilds/
+/TestResults/
+
+# The files of the code editors.
+*.csproj
+*.sln
+*.slnx
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+.vs/
+.vscode/
+.idea/
+.consulo/
+
+# Crash reports and system files.
+sysinfo.txt
+mono_crash.*
+.DS_Store
+
+# Python caches.
+__pycache__/

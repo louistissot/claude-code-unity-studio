@@ -1,0 +1,64 @@
+# claude-code-unity-studio
+
+> A guide and a template to make an original Unity 6 game with Claude Code from the first idea to the release (phases
+> with gates, an originality challenge against clones, the story and the script), and to run the project as a game
+> studio runs production, with many parallel Claude
+> Code sessions (AI coding agents) on one Mac as the team: the human as game director; a producer session (milestones
+> with exit criteria, backlog, risks, reviews, merges); owner sessions as discipline leads, specialists on demand, and task sessions, in Git worktrees (APFS
+> clones that cost almost no disk); one Unity runner session as build and QA engineer, with a job queue and a lock (two slots,
+> a disk guard); QA with bug triage; a C# compile check without Unity; test tiers with a pre-commit hook; bot and
+> network test skeletons; play reports and playtests; release candidates with one zip for each system. MIT licence.
+> Tested on one game with one user for about three weeks; macOS only for the clone worktrees.
+
+Use it when you make a Unity game with Claude Code and want more than one session at the same time, without full disks,
+merge conflicts in scenes, or Unity jobs that block each other. It is not a set of agent personas, and it does not
+connect Claude to the Unity Editor window (see the similar projects in the README).
+
+## Start
+
+- [The guide](docs/guide.md): the order of the work from the first idea to the release, the phases, the gates, who does what
+- [What to avoid](docs/ai-pitfalls.md): clones, average ideas, taste given away, generic text, and the countermeasures
+- [The concept phase](docs/concept-phase.md): your own ideas first, comparables, the challenger, the originality gate, key risks
+- [The story and the script](docs/narrative.md): the order of the story work, the story bible, what AI does well there
+- [README](README.md): what it is, the limits, the quick start, the similar projects
+- [sessions.conf](sessions.conf): the one configuration file of all tools
+- [setup.sh](setup.sh): makes an empty Unity 6 project with the Unity CLI and adds the samples
+
+## Method
+
+- [The studio model](docs/studio-model.md): roles, milestones (vertical slice, alpha, beta, release candidate), rhythm, gaps, sources
+- [Roles](docs/roles.md): the human (creative director), the coordinator (producer), the runner (build and QA engineer), owners, specialists on demand, task sessions
+- [The operating model](docs/operating-model.md): one contact for the human, the daily rhythm, the daily triage, session rotation with handoff files
+- [The life of a session](docs/session-lifecycle.md): the steps from the brief to the final report; messages and notes
+- [The merge rule](docs/merge-rule.md): team branch prefixes, pull requests, review, a merge only after the human says yes
+- [More than one team](docs/multi-team.md): claims, messages, the shared board, the 11-step protocol for each coordinator
+- [File ownership](docs/file-ownership.md): one owner for each file; generated files
+- [Disk and worktrees](docs/disk-and-worktrees.md): the disk budget; APFS clone worktrees
+- [The Unity runner](docs/unity-runner.md): one session runs Unity from a queue; the lock
+- [Test tiers](docs/test-tiers.md): the compile check without Unity, the tiers, the hook, flaky tests, bots, network tests
+- [The play-report loop](docs/play-report-loop.md): numbered reports, the report key, the 10-minute focus list
+- [Release rules](docs/release-rules.md): one zip for each system, checks before and after the upload
+- [Lessons](docs/lessons.md): what went wrong, and the fix for each problem
+
+## Tools
+
+- [tools/unity-lock.sh](tools/unity-lock.sh): the lock for Unity batch jobs
+- [tools/quick-compile.sh](tools/quick-compile.sh): the C# compile check without Unity (about 5 s)
+- [tools/new-worktree.sh](tools/new-worktree.sh): a new worktree as an APFS clone of the main checkout
+- [tools/test-tier.sh](tools/test-tier.sh): the test tiers smoke, quick, full, nightly
+- [tools/release.sh](tools/release.sh): the release zips, the checks, the GitHub release
+
+## Templates
+
+- [templates/CLAUDE.md](templates/CLAUDE.md): a CLAUDE.md for the game
+- [templates/briefs/](templates/briefs/): a brief for each kind of session
+- [templates/board/](templates/board/): the shared board for more than one team, its data model, and the protocol
+- [templates/play-report.md](templates/play-report.md): the reading and the fixes of a human play report
+- [templates/concept-challenge.md](templates/concept-challenge.md), [concept-doc.md](templates/concept-doc.md), [comparables.md](templates/comparables.md), [prototype-plan.md](templates/prototype-plan.md), [story-bible.md](templates/story-bible.md), [script-outline.md](templates/script-outline.md), [ai-record.md](templates/ai-record.md): the concept and story documents
+- [templates/daily-summary.md](templates/daily-summary.md), [templates/handoff.md](templates/handoff.md): the daily summary of the coordinator, the handoff file of a rotation
+- [templates/milestones.md](templates/milestones.md), [risks.md](templates/risks.md), [bugs.md](templates/bugs.md), [playtest-plan.md](templates/playtest-plan.md), [release-checklist.md](templates/release-checklist.md), [retrospective.md](templates/retrospective.md), [pillars.md](templates/pillars.md), [feature-onepager.md](templates/feature-onepager.md): the production documents
+
+## Optional
+
+- [Blender models from scripts](docs/blender-assets.md)
+- [Photo pairs: the real place and the game](docs/photo-pairs.md)

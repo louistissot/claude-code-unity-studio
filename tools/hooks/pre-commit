@@ -1,0 +1,34 @@
+#!/bin/bash
+# The pre-commit hook of the project (tools/install-hooks.sh installs a small hook that starts this file in the
+# worktree of the commit). For a commit with files that match HOOK_PATTERN (sessions.conf) it runs:
+#   - in a worktree that can start Unity jobs: the smoke tier through the Unity lock (about 1 to 3 min);
+#   - in any other worktree: tools/quick-compile.sh (about 5 s, no Unity).
+# It checks the files of the work tree, not only the staged files.
+# Skip it for one commit: SKIP_TESTS=1 git commit ...  Do this only when you ran the checks of this commit just before,
+# and write the result in the commit message.
+
+[ "${SKIP_TESTS:-0}" = "1" ] && exit 0
+ROOT="$(git rev-parse --show-toplevel)" || exit 0
+cd "$ROOT" || exit 0
+[ -f tools/lib/common.sh ] || exit 0
+# No Unity project yet (before setup.sh): nothing to check.
+[ -f ProjectSettings/ProjectVersion.txt ] || exit 0
+source tools/lib/common.sh
+
+git diff --cached --name-only | grep -qE "$HOOK_PATTERN" || exit 0
+
+if project_open; then
+  echo "pre-commit: Unity has this project open; no check now. Run the smoke tier later (docs/test-tiers.md)."
+  exit 0
+fi
+
+if unity_allowed .; then
+  echo "pre-commit: tools/test-tier.sh smoke through the Unity lock (SKIP_TESTS=1 skips it)"
+  tools/unity-lock.sh tools/test-tier.sh smoke || { echo "pre-commit: the smoke tier failed; the commit stops."; exit 1; }
+elif ls Library/Bee/artifacts/*E.dag >/dev/null 2>&1; then
+  echo "pre-commit: this worktree does not run Unity: tools/quick-compile.sh (SKIP_TESTS=1 skips it)"
+  tools/quick-compile.sh || { echo "pre-commit: compile errors; the commit stops."; exit 1; }
+else
+  echo "pre-commit: this worktree has no Library and does not run Unity: no compile check. Send the commit to $RUNNER_NAME."
+fi
+exit 0
