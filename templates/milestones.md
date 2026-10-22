@@ -7,7 +7,7 @@ work starts, so that everybody uses the same definition.
 
 | Milestone | Date | Exit criteria | Proof | Sign-off |
 |---|---|---|---|---|
-| Concept gate | <date> | <the originality gate passed (10 of 10 accepted); comparables with a visible difference; the key risks named with a prototype plan; the pillars written> | `concept-challenge.md`, `comparables.md`, `prototype-plan.md` | <the human, date> |
+| Concept gate | <date> | <the originality gate passed (all parts accepted); comparables with a visible difference; the key risks named with a prototype plan; the pillars written> | `concept-challenge.md`, `comparables.md`, `prototype-plan.md` | <the human, date> |
 | Prototype | <date> | <the core loop is playable; the main design risk has an answer> | <a playtest note> | <the human, date> |
 | Pre-production gate (vertical slice) | <date> | <each key risk has a result; one part at near-final quality; the budgets pass on the target machines; three or more new players played it; the story bible and the script outline exist> | <photos, benchmark result, playtest results> | |
 | Alpha (feature complete) | <date> | <each planned feature is in and playable from start to end; the cut list is decided> | <the full tier, a bot run> | |

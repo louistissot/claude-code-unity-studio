@@ -33,7 +33,9 @@ See also what to avoid: [ai-pitfalls.md](ai-pitfalls.md).
 
 - **Goal:** your own first ideas, before any AI output can steer them.
 - **Human:** write 10 or more ideas on paper in 30 minutes: places, people, experiences, systems, and constraints that
-  you know and care about. Then write why each one matters to you. Keep the list.
+  you know and care about. Then write why each one matters to you. Keep the list. If you already have one idea, write
+  three variants of it (smaller, stranger, more personal) and the "why" of each ([concept-phase.md](concept-phase.md),
+  step 1).
 - **Sessions:** none.
 - **Output:** the idea list, in your own words.
 
@@ -43,8 +45,8 @@ See also what to avoid: [ai-pitfalls.md](ai-pitfalls.md).
 - **Human:** select up to three ideas from the list and write a one-page concept for each (`templates/concept-doc.md`).
   Answer the questions of the challenger. Play the nearest published games. Make a paper or toy prototype of the core
   verb.
-- **Sessions:** the **coordinator** (research of comparables and of the market) and a **challenger** session
-  (`templates/briefs/challenger.md`) that attacks each concept with the originality gate
+- **Sessions:** the **coordinator** (research of comparables and of the market) and a **challenger** (a session or a
+  subagent; `templates/briefs/challenger.md`) that attacks each concept with the originality gate
   (`templates/concept-challenge.md`). No owner sessions yet. No production code.
 - **Output:** the concept document, the comparables table (`templates/comparables.md`), the vision and pillars
   (`templates/pillars.md`), the key risks as yes-or-no questions (`templates/prototype-plan.md`), and the challenge
@@ -61,6 +63,9 @@ See also what to avoid: [ai-pitfalls.md](ai-pitfalls.md).
   theme, and the voice of the key characters ([narrative.md](narrative.md)); approve the scope and the cut list.
 - **Sessions:** the coordinator, the **runner** (set up the Unity project with `setup.sh`, the tests, the builds), and
   one task session for each key-risk prototype. Owner sessions start near the end, for the vertical slice.
+- **Live AI in the game:** when the game runs an AI while it plays (characters, rulers, text, voices), pre-production
+  also has a red-team prototype (players try to break the AI), the guardrails that a human writes, and a cost sheet for
+  each player from a real log ([ai-pitfalls.md](ai-pitfalls.md)).
 - **Output:** a result for each key risk (abandon, change, or go); the story bible and the script outline
   (`templates/story-bible.md`, `templates/script-outline.md`); one-page designs for the main features
   (`templates/feature-onepager.md`); the milestone plan, the backlog, and the cut list (`templates/milestones.md`); the

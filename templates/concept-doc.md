@@ -1,7 +1,8 @@
 # Concept: <title>
 
 One page. The human writes it, in the human's own words. Write up to three of these, then keep one
-([docs/concept-phase.md](../docs/concept-phase.md)).
+([docs/concept-phase.md](../docs/concept-phase.md)). A field that the human did not answer stays empty: a session that
+helps writes its suggestions into a separate file (`concept-notes.md`), not into this page.
 
 | Field | Content |
 |---|---|
@@ -14,7 +15,9 @@ One page. The human writes it, in the human's own words. Write up to three of th
 | Your personal angle | <what you know, care about, or have lived that no prompt brings> |
 | The nearest games | <three names; the full table is in comparables.md> |
 | The difference that a player sees | <in a screenshot, or in the first five minutes> |
-| Players and platform | <who, how many players, which machines, how long one session is> |
+| Players and platform | <who, which machines, how long one session is> |
+| Online or offline | <offline, local co-op, or online; for online: how many players must play in one world at the same time for the game to work> |
+| Business model | <price, subscription, or free to play; what pays the cost to run for each player (servers, AI calls)> |
 | Scope | <the smallest version that still serves the fantasy; the team; the months> |
 | The largest risks | <three or four, as yes-or-no questions> |
 | What AI makes, and what humans make | <for example: code with review, tests, research; humans: art direction, story, feel> |
